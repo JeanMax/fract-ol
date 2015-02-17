@@ -6,12 +6,12 @@
 #    By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/29 13:16:03 by mcanal            #+#    #+#              #
-#    Updated: 2015/02/16 15:21:32 by mcanal           ###   ########.fr        #
+#    Updated: 2015/02/16 19:50:25 by mcanal           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 NAME =	fractol
-C_SRC =	main.c
+C_SRC =	main.c hooks.c mlx.c mandel.c
 O_DIR =	obj
 VPATH =	src
 SRCC = 	$(C_SRC:%.c=src/%.c)
@@ -21,6 +21,7 @@ INC =	inc/header.h
 CC =	gcc
 RM =	rm -f
 CFLAGS = -Wall -Werror -Wextra -I./inc/
+MLX = -L/usr/X11/lib -lmlx -lXext -lX11
 
 .PHONY: all lib soft debug optimize clean fclean zclean brute re
 
@@ -29,23 +30,23 @@ all:
 	@$(MAKE) $(NAME)
 
 $(NAME): $(SRCO) $(LIB) $(INC)
-	@$(CC) $(CFLAGS) $(SRCO) $(LIB) -o $@
+	$(CC) $(CFLAGS) $(SRCO) $(LIB) $(MLX) -o $@ -lm
 
 $(O_DIR)/%.o: %.c
 	@$(RM) $(NAME)
-	@$(CC) $(CFLAGS) -c $^ -o $@
+	$(CC) $(CFLAGS) $(MLX) -c $^ -o $@ -lm
 
 soft:
 	@$(RM) $(NAME)
-	@$(CC) $(SRCC) $(LIB) -o $(NAME)
+	@$(CC) $(SRCC) $(LIB) $(MLX) -o $(NAME) -lm
 	@./$(NAME)
 
 debug: re
-	@$(CC) $(CFLAGS) -ggdb $(SRCO) $(LIB) -o $(NAME)
+	@$(CC) $(CFLAGS) -ggdb $(SRCO) $(LIB) $(MLX) -o $(NAME)
 	@gdb $(NAME)
 
 optimize: re
-	@$(CC) $(CFLAGS) -O2 $(SRCO) $(LIB) -o $(NAME)
+	@$(CC) $(CFLAGS) -O2 $(SRCO) $(LIB) $(MLX) -o $(NAME)
 
 clean:
 	@$(RM) $(SRCO)
