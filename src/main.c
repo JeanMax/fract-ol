@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/16 18:09:34 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/17 01:18:01 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/17 22:51:05 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ int				main(int ac, char **av)
 	e.mlx = mlx_init();
 	e.win = mlx_new_window(e.mlx, WIN_SIZE, WIN_SIZE, "zboub");
 	e.iter = 49;
-//	e.zoom = 1; //TODO
-//	e.x_centre = size / 2; //TODO
-//	e.y_centre = size * (8 / 9) / 2; //TODO
-	e.x_base = WIN_SIZE * 0.8;
+	e.zoom = 1;
+	e.x_base = WIN_SIZE * 0.5;
 	e.y_base = WIN_SIZE * 0.5;
+	e.x_centre = 0;
+	e.y_centre = 0;
 	mlx_expose_hook(e.win, ex_hook, &e);
 	mlx_key_hook(e.win, key_hook, &e);
 	mlx_mouse_hook(e.win, mouse_hook, &e);

@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/29 13:23:15 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/17 01:16:03 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/17 17:32:41 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@
 # define UP 65362
 # define RIGHT 65363
 # define DOWN 65364
+# define PAGE_UP 65365
+# define PAGE_DOWN 65366
+# define SPACE 32
+# define LEFT_CLICK 1
+# define RIGHT_CLICK 3
+# define SCROLL_UP 4
+# define SCROLL_DOWN 5
 # define USAGE "Usage: ./fractol -[M]"
 # define DEBUG { ft_putstr_clr(__func__, "r"); ft_putstr_clr(" (", "r"); ft_putstr_clr(__FILE__, "red"); ft_putstr_clr(") - line: ", "r"); ft_putnbr_clr(__LINE__, "r"); ft_putendl(""); } //debug
 
@@ -51,11 +58,11 @@ struct	s_env
 	int		endian;
 	char	*data;
 	int		iter; //move to another struct?
-	double	zoom; //TODO //move to another struct?
+	double	zoom; //move to another struct?
 	int		x_base; //move to another struct?
 	int		y_base; //move to another struct?
-	int		x_centre; //TODO //move to another struct?
-	int		y_centre; //TODO //move to another struct?
+	int		x_centre; //move to another struct?
+	int		y_centre; //move to another struct?
 };
 
 typedef struct s_coord	t_coord;

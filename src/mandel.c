@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/16 19:50:14 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/17 01:13:36 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/17 23:23:06 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,16 @@ static void		calc_mandel(t_coord *coord, t_env *e)
 		i++;
 	}
 	if (i < e->iter)
-		mlx_put_pixel_to_img(e, coord->x, coord->y, \
-							 ft_rgb(i * 255 / e->iter, 0, 0));
+	{
+		if (i % 3 != 1)
+			mlx_put_pixel_to_img(e, coord->x, coord->y,         \
+								 ft_rgb(0, i * 255 / e->iter, 0));
+		else
+			mlx_put_pixel_to_img(e, coord->x, coord->y,         \
+								 ft_rgb(0, 0, i * 255 / e->iter));
+	}
+//	else
+//		mlx_put_pixel_to_img(e, coord->x, coord->y, 0x000033);
 }
 
 static void		calc_coord(t_env *e, t_coord *coord)
@@ -58,8 +66,8 @@ static void		calc_coord(t_env *e, t_coord *coord)
 		{
 			coord->x = i;
 			coord->y = j;
-			coord->xo = (double)(i - e->x_base) * ratio;
-			coord->yo = (double)(j - e->y_base) * ratio;
+			coord->xo = ((double)(i - e->x_base) * ratio) * e->zoom;
+			coord->yo = ((double)(j - e->y_base) * ratio) * e->zoom;
 			calc_mandel(coord, e);
 			j++;
 		}
