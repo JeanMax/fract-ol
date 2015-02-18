@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/29 13:23:15 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/18 05:40:52 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/18 20:32:55 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** define
 */
 # define HEADER_H
-# define WIN_SIZE 800
+# define WIN_SIZE 400
 # define ESC 65307
 # define NUM_PLUS 65451
 # define NUM_MINUS 65453
@@ -31,7 +31,7 @@
 # define RIGHT_CLICK 3
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
-# define USAGE "Usage: ./fractol -[M]"
+# define USAGE "Usage: ./fractol -[MJZ]"
 # define DEBUG { ft_putstr_clr(__func__, "r"); ft_putstr_clr(" (", "r"); ft_putstr_clr(__FILE__, "red"); ft_putstr_clr(") - line: ", "r"); ft_putnbr_clr(__LINE__, "r"); ft_putendl(""); } //debug
 
 /*
@@ -43,6 +43,9 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <complex.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <signal.h>
 
 /*
 ** struct def
@@ -58,6 +61,7 @@ struct	s_env
 	int		x_len;
 	int		endian;
 	char	*data;
+	t_char	fractal;
 	t_char	iter; //move to another struct?
 	double	zoom; //move to another struct?
 	int		x_base; //move to another struct?
