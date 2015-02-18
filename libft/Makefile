@@ -6,7 +6,7 @@
 #    By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/09/09 21:26:32 by mcanal            #+#    #+#              #
-#    Updated: 2015/02/15 21:30:59 by mcanal           ###   ########.fr        #
+#    Updated: 2015/02/18 06:19:48 by mcanal           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -27,7 +27,8 @@ C_IO =		ft_putchar.c		ft_putnbr.c			ft_putstr.c			\
 			ft_putstr_clr.c		ft_putchar_clr.c	ft_putendl_clr.c	\
 			ft_debugstr.c		ft_debugnbr.c		ft_putnbr_clr.c		\
 			get_line.c			fail.c				failn.c				\
-			ft_putnbr_fd.c
+			ft_putnbr_fd.c		ft_putdbl.c			ft_putdbl_fd.c		\
+			ft_putdbl_clr.c		ft_debugdbl.c
 C_IS =		ft_isalnum.c		ft_isalpha.c		ft_isxdigit.c		\
 			ft_isascii.c		ft_isdigit.c		ft_isprint.c		\
 			ft_islower.c		ft_isupper.c		ft_isblank.c		\

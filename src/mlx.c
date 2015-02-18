@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/16 18:26:16 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/17 00:38:06 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/18 05:28:22 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	mlx_put_pixel_to_img(t_env *e, int x, int y, int color)
 		return ;
 	}
 	col_tmp = mlx_get_color_value(e->mlx, color);
-	i = y * e->size_line + x * (e->bpp / 8);
+	i = y * e->x_len + x * (e->bpp / 8);
 	if (!(e->endian))
 	{
 		e->data[i] = (col_tmp & 0x0000FF);

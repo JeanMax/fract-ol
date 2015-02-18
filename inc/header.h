@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/29 13:23:15 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/17 17:32:41 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/18 05:40:52 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@
 /*
 ** struct def
 */
+
 typedef struct s_env	t_env;
 struct	s_env
 {
@@ -54,30 +55,19 @@ struct	s_env
 	void	*win;
 	void	*img;
 	int		bpp;
-	int		size_line;
+	int		x_len;
 	int		endian;
 	char	*data;
-	int		iter; //move to another struct?
+	t_char	iter; //move to another struct?
 	double	zoom; //move to another struct?
 	int		x_base; //move to another struct?
 	int		y_base; //move to another struct?
-	int		x_centre; //move to another struct?
-	int		y_centre; //move to another struct?
-};
-
-typedef struct s_coord	t_coord;
-struct s_coord
-{
-	int		x;
-	int		y;
-	double	xo;
-	double	yo;
 };
 
 /*
 ** prototypes
 */
-void	mandelbrot(t_env *e);
+void	mandelbrot(t_env *e, double ratio, t_char it);
 int		key_hook(int key, t_env *e);
 int		mouse_hook(int button, int x, int y, t_env *e);
 int		ex_hook(t_env *e);
