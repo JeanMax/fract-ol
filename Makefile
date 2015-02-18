@@ -6,12 +6,12 @@
 #    By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/29 13:16:03 by mcanal            #+#    #+#              #
-#    Updated: 2015/02/16 19:50:25 by mcanal           ###   ########.fr        #
+#    Updated: 2015/02/18 21:17:18 by mcanal           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 NAME =	fractol
-C_SRC =	main.c hooks.c mlx.c mandel.c
+C_SRC =	main.c hooks.c mlx.c mandel.c error.c julia.c buddhabrot.c
 O_DIR =	obj
 VPATH =	src
 SRCC = 	$(C_SRC:%.c=src/%.c)

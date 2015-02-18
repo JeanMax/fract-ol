@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/29 17:28:24 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/18 20:35:41 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/19 00:33:13 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ int		ex_hook(t_env *e)
 {
 //	mlx_destroy_image(e->mlx, e->img);
 	if (!(e->img = mlx_new_image(e->mlx, WIN_SIZE, WIN_SIZE)))
-		failn("Error while creating img pointer."), exit(-1);
+		error(IMG_PTR);
 	e->data = mlx_get_data_addr(e->img, &(e->bpp), &(e->x_len), &(e->endian));
 	if (e->fractal == 'M')
 		mandelbrot(e, 0, 0);
-/* TODO:
 	else if (e->fractal == 'J')
-		julia(e);
-	else if (e->fractal == 'Z')
-		zboub(e);
+		julia(e, 0, 0);
+	else if (e->fractal == 'B')
+		buddhabrot(e, 0, 0);
+/* TODO:
 	else if (e->fractal == 'T')
 		tob(e);
 */
@@ -43,9 +43,9 @@ int		key_hook(int key, t_env *e)
 		mlx_destroy_window(e->mlx, e->win); //optional
 		kill(0, SIGINT);
 	}
-	else if (key == PAGE_UP && e->iter != 100)
+	else if (key == PAGE_UP && e->iter < 100)
 		e->iter += 3;
-	else if (key == PAGE_DOWN && e->iter != 1)
+	else if (key == PAGE_DOWN && e->iter != 3)
 		e->iter -= 3;
 	else if (key == UP)
 		e->y_base -= 10;
@@ -64,8 +64,11 @@ int		key_hook(int key, t_env *e)
 		e->x_base = WIN_SIZE * 0.5;
 		e->y_base = WIN_SIZE * 0.5;
 		e->zoom = 1;
+		e->iter = 49;
 		ex_hook(e);
 	}
+	else if (key == ENTER)
+		e->lock += e->lock == 0 ? 1 : -1;
 	else
 		ft_debugnbr("key", key); //debug
 	if (key == PAGE_UP || key == PAGE_DOWN)
@@ -95,5 +98,15 @@ int		mouse_hook(int button, int x, int y, t_env *e)
 		ft_debugnbr("button", button), ft_debugnbr("x", x), ft_debugnbr("y", y); //debug
 	if (button == SCROLL_UP || button == SCROLL_DOWN)
 		ft_debugdbl("zoom", e->zoom), ex_hook(e);
+	return (0);
+}
+
+int		mouse_move(int x, int y, t_env *e)
+{
+	if (!((x + y) % 10) && !e->lock)
+	{
+		e->iter = ((x + y) / 8 ) + 1;
+		ft_debugnbr("IterationLevel", e->iter), ex_hook(e);
+	}
 	return (0);
 }

@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mandel.c                                           :+:      :+:    :+:   */
+/*   julia.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/02/16 19:50:14 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/19 00:36:22 by mcanal           ###   ########.fr       */
+/*   Created: 2015/02/18 20:53:20 by mcanal            #+#    #+#             */
+/*   Updated: 2015/02/18 21:11:45 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
-** mandel fractal
+** julia fractal drawing!
 */
 
 #include "header.h"
 
-static int		rgb(t_char i, t_char i_max)
+static int				rgb(t_char i, t_char i_max)
 {
 	if (i % 2)
 		return (i * 255 / i_max * 65536);
@@ -24,7 +24,7 @@ static int		rgb(t_char i, t_char i_max)
 		return (i * 255 / i_max * 256);
 }
 
-void			mandelbrot(t_env *e, double ratio, t_char it)
+void			julia(t_env *e, double ratio, t_char it)
 {
 	int				i;
 	int				j;
@@ -36,8 +36,8 @@ void			mandelbrot(t_env *e, double ratio, t_char it)
 	while (j = -1, ++i < WIN_SIZE)
 		while (++j < WIN_SIZE)
 		{
-			c = (i - e->x_base) * ratio + I * (j - e->y_base) * ratio;
-			z = 0;
+			z = (i - e->x_base) * ratio + I * (j - e->y_base) * ratio;
+			c = 0.285;
 			it = -1;
 			while (++it < e->iter && (int)z < 2)
 				z = z * z + c;
@@ -45,4 +45,5 @@ void			mandelbrot(t_env *e, double ratio, t_char it)
 				mlx_put_pixel_to_img(e, i, j, rgb(it, e->iter));
 		}
 	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
+
 }

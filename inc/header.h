@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/29 13:23:15 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/18 20:32:55 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/19 00:12:18 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 ** define
 */
 # define HEADER_H
-# define WIN_SIZE 400
+# define WIN_SIZE 512
 # define ESC 65307
+# define ENTER 65293
 # define NUM_PLUS 65451
 # define NUM_MINUS 65453
 # define LEFT 65361
@@ -31,13 +32,19 @@
 # define RIGHT_CLICK 3
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
-# define USAGE "Usage: ./fractol -[MJZ]"
+# define USAGE 1
+# define USAGE_MSG "Usage: ./fractol -[MJZT]"
+# define IMG_PTR 2
+# define IMG_PTR_MSG "Error while creating img pointer."
+# define PUT_PIX 3
+# define PUT_PIX_MSG "Error while trying to put pixel out of image."
 # define DEBUG { ft_putstr_clr(__func__, "r"); ft_putstr_clr(" (", "r"); ft_putstr_clr(__FILE__, "red"); ft_putstr_clr(") - line: ", "r"); ft_putnbr_clr(__LINE__, "r"); ft_putendl(""); } //debug
 
 /*
 ** include
 */
 # include "../libft/inc/libft.h"
+# include <X11/X.h>
 # include <mlx.h>
 # include <math.h>
 # include <unistd.h>
@@ -64,6 +71,7 @@ struct	s_env
 	t_char	fractal;
 	t_char	iter; //move to another struct?
 	double	zoom; //move to another struct?
+	t_char	lock; //idem
 	int		x_base; //move to another struct?
 	int		y_base; //move to another struct?
 };
@@ -71,9 +79,13 @@ struct	s_env
 /*
 ** prototypes
 */
+void	error(t_char c);
+void	julia(t_env *e, double ratio, t_char it);
+void	buddhabrot(t_env *e, double ratio, t_char it);
 void	mandelbrot(t_env *e, double ratio, t_char it);
 int		key_hook(int key, t_env *e);
 int		mouse_hook(int button, int x, int y, t_env *e);
+int		mouse_move(int x, int y, t_env *e);
 int		ex_hook(t_env *e);
 void	mlx_put_pixel_to_img(t_env *e, int x, int y, int color);
 

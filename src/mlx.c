@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/16 18:26:16 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/18 05:28:22 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/18 20:50:32 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ void	mlx_put_pixel_to_img(t_env *e, int x, int y, int color)
 	int		col_tmp;
 
 	if (x > WIN_SIZE || y > WIN_SIZE)
-	{
-		failn("Error: trying to put pixel out of image.");
-		return ;
-	}
+		error(PUT_PIX);
 	col_tmp = mlx_get_color_value(e->mlx, color);
 	i = y * e->x_len + x * (e->bpp / 8);
 	if (!(e->endian))
