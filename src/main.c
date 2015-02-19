@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/16 18:09:34 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/19 10:07:33 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/19 15:39:20 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static void		init(t_env *e, char *name)
 	e->fractal = name[0];
 	e->iter = 49;
 	e->zoom = 1;
+	e->color = 0x00003F; //??
 	e->x_base = WIN_SIZE * 0.5;
 	e->y_base = WIN_SIZE * 0.5;
 	e->mlx = mlx_init();

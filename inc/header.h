@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/29 13:23:15 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/19 10:14:58 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/19 17:20:40 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@
 # define PAGE_UP 65365
 # define PAGE_DOWN 65366
 # define SPACE 32
+# define ONE 65457
+# define TWO 65458
+# define THREE 65459
+# define FOUR 65460
+# define FIVE 65461
+# define SIX 65462
+# define L_CTRL 65507
 # define LEFT_CLICK 1
 # define RIGHT_CLICK 3
 # define SCROLL_UP 4
@@ -75,6 +82,7 @@ struct	s_env
 	t_char		lock; //idem
 	int			x_base; //move to another struct? //use LONG LONG?
 	int			y_base; //move to another struct? //use LONG LONG?
+	int			color; //idem
 };
 
 /*

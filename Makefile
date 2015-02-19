@@ -6,7 +6,7 @@
 #    By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/29 13:16:03 by mcanal            #+#    #+#              #
-#    Updated: 2015/02/19 06:58:32 by mcanal           ###   ########.fr        #
+#    Updated: 2015/02/19 15:29:14 by mcanal           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -21,7 +21,7 @@ LIB =	libft/libft.a
 INC =	inc/header.h
 CC =	gcc
 RM =	rm -f
-CFLAGS = -Wall -Werror -Wextra -I./inc/
+CFLAGS = -Wall -Werror -Wextra -I./inc/ -I/usr/X11/include
 MLX = -L/usr/X11/lib -lmlx -lXext -lX11
 
 .PHONY: all lib soft debug optimize clean fclean zclean brute re

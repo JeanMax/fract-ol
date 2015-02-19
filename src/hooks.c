@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/29 17:28:24 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/19 10:36:52 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/19 17:22:26 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,21 @@ int		key_hook(int key, t_env *e)
 	else if (key == RIGHT)
 		e->x_base += 10;
 	else if (key == NUM_PLUS)
-		e->zoom *= 0.9;
+		e->zoom /= 0.95;
 	else if (key == NUM_MINUS)
-		e->zoom /= 0.9;
+		e->zoom *= 0.95;
+	else if (key == ONE)
+		e->color += 0x100000;
+	else if (key == TWO)
+		e->color += 0x001000;
+	else if (key == THREE)
+		e->color += 0x000010;
+	else if (key == FOUR)
+		e->color -= 0x100000;
+	else if (key == FIVE)
+		e->color -= 0x001000;
+	else if (key == SIX)
+		e->color -= 0x000010;
 	else if (key == SPACE)
 	{
 		e->x_base = WIN_SIZE * 0.5;
@@ -67,6 +79,14 @@ int		key_hook(int key, t_env *e)
 	}
 	else if (key == ENTER)
 		e->lock += e->lock == 0 ? 1 : -1;
+	else if (key == L_CTRL)
+	{
+		while (42)
+		{
+			e->color += 0x100000;
+			ex_hook(e);
+		}
+	}
 	else
 		ft_debugnbr("key", key); //debug
 	if (key == PAGE_UP || key == PAGE_DOWN)
@@ -75,9 +95,11 @@ int		key_hook(int key, t_env *e)
 		ft_debugnbr("x", e->x_base), ft_debugnbr("y", e->y_base), ex_hook(e);//d
 	else if (key == NUM_PLUS || key == NUM_MINUS)
 		ft_debugdbl("zoom", e->zoom), ex_hook(e); //debug
+	else if (key >= ONE && key <= SIX)
+		ex_hook(e);
 	return (0);
 }
-#include <stdio.h> //debug //debug
+
 int		mouse_hook(int button, int x, int y, t_env *e)
 {
 	if (button == SCROLL_UP)
