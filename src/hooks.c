@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/29 17:28:24 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/19 00:33:13 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/19 10:36:52 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,21 @@ int		ex_hook(t_env *e)
 		mandelbrot(e, 0, 0);
 	else if (e->fractal == 'J')
 		julia(e, 0, 0);
-	else if (e->fractal == 'B')
-		buddhabrot(e, 0, 0);
-/* TODO:
-	else if (e->fractal == 'T')
-		tob(e);
-*/
+	else if (e->fractal == 'S')
+		schottky(e, 0, 0);
+	else if (e->fractal == 'C')
+		chromosom(e, 0, 0);
+	else if (e->fractal == 'N')
+		noun(e, 0, 0);
+	else if (e->fractal == 'D')
+		rabbit(e, 0, 0);
 	return (0);
 }
 
 int		key_hook(int key, t_env *e)
 {
 	if (key == ESC)
-	{
-		ft_putendl_clr("K_THX_BYE", "b");
-		mlx_destroy_window(e->mlx, e->win); //optional
-		kill(0, SIGINT);
-	}
+		ft_putstr_clr("K_THX_BYE", "b"), kill(0, SIGINT);
 	else if (key == PAGE_UP && e->iter < 100)
 		e->iter += 3;
 	else if (key == PAGE_DOWN && e->iter != 3)
@@ -72,32 +70,34 @@ int		key_hook(int key, t_env *e)
 	else
 		ft_debugnbr("key", key); //debug
 	if (key == PAGE_UP || key == PAGE_DOWN)
-		ft_debugnbr("IterationLevel", e->iter), ex_hook(e);
+		ft_debugnbr("IterationLevel", e->iter), ex_hook(e);  //debug
 	else if (key >= LEFT && key <= DOWN)
-		ft_debugnbr("x", e->x_base), ft_debugnbr("y", e->y_base), ex_hook(e);
+		ft_debugnbr("x", e->x_base), ft_debugnbr("y", e->y_base), ex_hook(e);//d
 	else if (key == NUM_PLUS || key == NUM_MINUS)
-		ft_debugdbl("zoom", e->zoom), ex_hook(e);;
+		ft_debugdbl("zoom", e->zoom), ex_hook(e); //debug
 	return (0);
 }
-
+#include <stdio.h> //debug //debug
 int		mouse_hook(int button, int x, int y, t_env *e)
 {
 	if (button == SCROLL_UP)
 	{
-		e->zoom *= 0.9;
-		e->x_base += ((WIN_SIZE / 2) - x) / (e->zoom * 10);
-		e->y_base += ((WIN_SIZE / 2) - y) / (e->zoom * 10);
+		e->zoom /= 0.95;
+		e->x_base += (int)((WIN_SIZE / 2) - x) / (double)(20.0 / e->zoom);
+		e->y_base += (int)((WIN_SIZE / 2) - y) / (double)(20.0 / e->zoom);
+		ft_debugdbl("zoom", e->zoom); //debug
 	}
 	else if (button == SCROLL_DOWN)
 	{
-		e->zoom /= 0.9;
-//		e->x_base += ((WIN_SIZE / 2) - x) / (e->zoom * 10);
-//		e->y_base += ((WIN_SIZE / 2) - y) / (e->zoom * 10);
+		e->zoom *= 0.95;
+		e->x_base -= (int)((WIN_SIZE / 2) - x) / (double)(20.0 / e->zoom);
+		e->y_base -= (int)((WIN_SIZE / 2) - y) / (double)(20.0 / e->zoom);
+		ft_debugdbl("zoom", e->zoom); //debug
 	}
 	else
 		ft_debugnbr("button", button), ft_debugnbr("x", x), ft_debugnbr("y", y); //debug
 	if (button == SCROLL_UP || button == SCROLL_DOWN)
-		ft_debugdbl("zoom", e->zoom), ex_hook(e);
+		ex_hook(e);
 	return (0);
 }
 
@@ -106,7 +106,7 @@ int		mouse_move(int x, int y, t_env *e)
 	if (!((x + y) % 10) && !e->lock)
 	{
 		e->iter = ((x + y) / 8 ) + 1;
-		ft_debugnbr("IterationLevel", e->iter), ex_hook(e);
+		ft_debugnbr("IterationLevel", e->iter), ex_hook(e);  //debug
 	}
 	return (0);
 }

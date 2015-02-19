@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/26 23:12:33 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/18 06:56:17 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/19 09:53:25 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_putdbl_clr(double nbr, char *clr)
 	ft_putchar_clr('.', clr);
 	nbr -= (int)nbr;
 	swap = nbr * 10;
-	while (swap < 1 && swap != 0)
+	while (swap < 0)
 	{
 		ft_putchar_clr('0', clr);
 		swap *= 10;

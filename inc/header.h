@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/29 13:23:15 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/19 00:12:18 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/19 10:14:58 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** define
 */
 # define HEADER_H
-# define WIN_SIZE 512
+# define WIN_SIZE 600
 # define ESC 65307
 # define ENTER 65293
 # define NUM_PLUS 65451
@@ -33,7 +33,8 @@
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
 # define USAGE 1
-# define USAGE_MSG "Usage: ./fractol -[MJZT]"
+# define USAGE_MSG1 "Usage: ./fractol -[MJSCDN]"
+# define USAGE_MSG2 "(Mandelbrot/Julia/Schottky/Chromosom/Douady-Rabbit/Noun)"
 # define IMG_PTR 2
 # define IMG_PTR_MSG "Error while creating img pointer."
 # define PUT_PIX 3
@@ -61,19 +62,19 @@
 typedef struct s_env	t_env;
 struct	s_env
 {
-	void	*mlx;
-	void	*win;
-	void	*img;
-	int		bpp;
-	int		x_len;
-	int		endian;
-	char	*data;
-	t_char	fractal;
-	t_char	iter; //move to another struct?
-	double	zoom; //move to another struct?
-	t_char	lock; //idem
-	int		x_base; //move to another struct?
-	int		y_base; //move to another struct?
+	void		*mlx;
+	void		*win;
+	void		*img;
+	int			bpp;
+	int			x_len;
+	int			endian;
+	char		*data;
+	t_char		fractal;
+	t_char		iter; //move to another struct?
+	double		zoom; //move to another struct?  //use LONG DOUBLE?
+	t_char		lock; //idem
+	int			x_base; //move to another struct? //use LONG LONG?
+	int			y_base; //move to another struct? //use LONG LONG?
 };
 
 /*
@@ -81,12 +82,16 @@ struct	s_env
 */
 void	error(t_char c);
 void	julia(t_env *e, double ratio, t_char it);
-void	buddhabrot(t_env *e, double ratio, t_char it);
+void	noun(t_env *e, double ratio, t_char it);
+void	rabbit(t_env *e, double ratio, t_char it);
+void	chromosom(t_env *e, double ratio, t_char it);
 void	mandelbrot(t_env *e, double ratio, t_char it);
+void	schottky(t_env *e, double ratio, t_char it);
 int		key_hook(int key, t_env *e);
 int		mouse_hook(int button, int x, int y, t_env *e);
 int		mouse_move(int x, int y, t_env *e);
 int		ex_hook(t_env *e);
-void	mlx_put_pixel_to_img(t_env *e, int x, int y, int color);
+void	put_pixel_to_img(t_env *e, int x, int y, int color);
+int		rgb(t_char i, t_char i_max);
 
 #endif

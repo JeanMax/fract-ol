@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   julia.c                                            :+:      :+:    :+:   */
+/*   chromosom.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/02/18 20:53:20 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/19 10:29:11 by mcanal           ###   ########.fr       */
+/*   Created: 2015/02/19 06:09:08 by mcanal            #+#    #+#             */
+/*   Updated: 2015/02/19 10:29:02 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
-** julia fractal drawing!
+** chromosom fractal
 */
 
 #include "header.h"
 
-void			julia(t_env *e, double ratio, t_char it)
+void			chromosom(t_env *e, double ratio, t_char it)
 {
 	int				i;
 	int				j;
@@ -25,7 +25,7 @@ void			julia(t_env *e, double ratio, t_char it)
 
 	ratio = 2.7 / WIN_SIZE / e->zoom;
 	i = -1;
-	c = 0.285;
+	c = 0.02 + I;
 	while (j = -1, ++i < WIN_SIZE)
 		while (++j < WIN_SIZE)
 		{

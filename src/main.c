@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/16 18:09:34 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/19 00:36:11 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/19 10:07:33 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,17 @@ static char		*check_flag(int ac, char **av, char *flag)
 		s = *av;
 		while (*s)
 		{
-			if (*s != 'M' && *s != 'J' && *s != 'B' && *s != 'T' && *s != '-')
+			if (*s != 'M' && *s != 'J' && *s != 'S' && *s != 'C' && *s != 'D'\
+				&& *s != 'N' && *s != '-')
 				error(USAGE);
 			s++;
 		}
-		if (ft_strchr(*av, 'M'))
-			flag[0] = 'M';
-		if (ft_strchr(*av, 'J'))
-			flag[1] = 'J';
-		if (ft_strchr(*av, 'B'))
-			flag[2] = 'B';
-		if (ft_strchr(*av, 'T'))
-			flag[3] = 'T';
+		flag[0] = ft_strchr(*av, 'M') ? 'M' : flag[0];
+		flag[1] = ft_strchr(*av, 'J') ? 'J' : flag[1];
+		flag[2] = ft_strchr(*av, 'S') ? 'S' : flag[2];
+		flag[3] = ft_strchr(*av, 'C') ? 'C' : flag[3];
+		flag[4] = ft_strchr(*av, 'D') ? 'D' : flag[4];
+		flag[5] = ft_strchr(*av, 'N') ? 'N' : flag[5];
 		av++;
 	}
 	(!flag[0] && !flag[1] && !flag[2] && !flag[3]) ? error(USAGE) : NULL;
@@ -66,29 +65,31 @@ static void		init(t_env *e, char *name)
 
 static void		launch_loop(char *flag, pid_t pid)
 {
-	t_env		e1;
-	t_env		e2;
-	t_env		e3;
-	t_env		e4;
+	t_env		e[6];
 
-	flag[0] ? init(&e1, "Mandelbrot") : NULL;
-	flag[1] ? init(&e2, "Julia") : NULL;
-	flag[2] ? init(&e3, "Buddhabrot") : NULL;
-	flag[3] ? init(&e4, "Tob") : NULL;
+	flag[0] ? init(&e[0], "Mandelbrot") : NULL;
+	flag[1] ? init(&e[1], "Julia") : NULL;
+	flag[2] ? init(&e[2], "Schottky") : NULL;
+	flag[3] ? init(&e[3], "Chromosom") : NULL;
+	flag[4] ? init(&e[4], "Douady Rabbit") : NULL;
+	flag[5] ? init(&e[5], "Noun") : NULL;
 	if (!(pid = fork()))
-	{
 		if (!(pid = fork()))
-		{
 			if (!(pid = fork()))
-				flag[3] ? mlx_loop(e4.mlx) : 0;
+				if (!(pid = fork()))
+					if (!(pid = fork()))
+						flag[5] ? mlx_loop(e[5].mlx) : 0;
+					else
+						flag[4] ? mlx_loop(e[4].mlx) : 0, wait(NULL);
+				else
+					flag[3] ? mlx_loop(e[3].mlx) : 0, wait(NULL);
 			else
-				flag[2] ? mlx_loop(e3.mlx) : 0, wait(NULL);
-		}
+				flag[2] ? mlx_loop(e[2].mlx) : 0, wait(NULL);
 		else
-			flag[1] ? mlx_loop(e2.mlx) : 0, wait(NULL);
-	}
+			flag[1] ? mlx_loop(e[1].mlx) : 0, wait(NULL);
 	else
-		flag[0] ? (mlx_loop(e1.mlx)) : 0, wait(NULL);
+		flag[0] ? (mlx_loop(e[0].mlx)) : 0, wait(NULL);
+
 }
 
 int				main(int ac, char **av)

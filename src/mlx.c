@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/16 18:26:16 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/18 20:50:32 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/19 07:25:11 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 #include "header.h"
 
-void	mlx_put_pixel_to_img(t_env *e, int x, int y, int color)
+void	put_pixel_to_img(t_env *e, int x, int y, int color)
 {
 	int		i;
 	int		col_tmp;
@@ -37,4 +37,12 @@ void	mlx_put_pixel_to_img(t_env *e, int x, int y, int color)
 		e->data[i + 2] = (col_tmp & 0x00FF00) >> 16;
 		e->data[i + 3] = (col_tmp & 0x0000FF) >> 24;
 	}
+}
+
+int				rgb(t_char i, t_char i_max)
+{
+	if (i % 2)
+		return (i * 255 / i_max * 65536);
+	else
+		return (i * 255 / i_max * 256);
 }
