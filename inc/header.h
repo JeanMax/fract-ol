@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/29 13:23:15 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/19 17:20:40 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/19 21:44:57 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@
 # define IMG_PTR_MSG "Error while creating img pointer."
 # define PUT_PIX 3
 # define PUT_PIX_MSG "Error while trying to put pixel out of image."
+# define C_DOUBLE double complex
 # define DEBUG { ft_putstr_clr(__func__, "r"); ft_putstr_clr(" (", "r"); ft_putstr_clr(__FILE__, "red"); ft_putstr_clr(") - line: ", "r"); ft_putnbr_clr(__LINE__, "r"); ft_putendl(""); } //debug
 
 /*
@@ -69,25 +70,27 @@
 typedef struct s_env	t_env;
 struct	s_env
 {
-	void		*mlx;
-	void		*win;
-	void		*img;
-	int			bpp;
-	int			x_len;
-	int			endian;
-	char		*data;
-	t_char		fractal;
-	t_char		iter; //move to another struct?
-	double		zoom; //move to another struct?  //use LONG DOUBLE?
-	t_char		lock; //idem
-	int			x_base; //move to another struct? //use LONG LONG?
-	int			y_base; //move to another struct? //use LONG LONG?
-	int			color; //idem
+	void			*mlx;
+	void			*win;
+	void			*img;
+	int				bpp;
+	int				x_len;
+	int				endian;
+	char			*data;
+	t_char			fractal;
+	t_char			iter; //move to another struct?
+	double			zoom; //move to another struct?  //use LONG DOUBLE?
+	t_char			lock; //idem
+	double			x; //move to another struct? //use LONG LONG?
+	double			y; //move to another struct? //use LONG LONG?
+	int				color; //idem
+	C_DOUBLE		ju; //same
 };
 
 /*
 ** prototypes
 */
+void	disco(t_env *e, int stop);
 void	error(t_char c);
 void	julia(t_env *e, double ratio, t_char it);
 void	noun(t_env *e, double ratio, t_char it);
@@ -98,8 +101,8 @@ void	schottky(t_env *e, double ratio, t_char it);
 int		key_hook(int key, t_env *e);
 int		mouse_hook(int button, int x, int y, t_env *e);
 int		mouse_move(int x, int y, t_env *e);
+int		julia_move(int x, int y, t_env *e);
 int		ex_hook(t_env *e);
 void	put_pixel_to_img(t_env *e, int x, int y, int color);
-int		rgb(t_char i, t_char i_max);
 
 #endif

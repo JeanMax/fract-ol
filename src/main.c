@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/16 18:09:34 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/19 15:39:20 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/19 22:03:10 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,26 @@
 */
 
 #include "header.h"
+
+void			disco(t_env *e, int stop)
+{
+	int			i;
+
+	i = 0;
+	while (42)
+	{
+		if (i % 3 == 1)
+			e->color += 0x100000;
+		else if (i % 3 == 2)
+			e->color += 0x000010;
+		else
+			e->color += 0x001000;
+		ex_hook(e);
+		i++;
+		if (i > stop)
+			break ;
+	}
+}
 
 static char		*check_flag(int ac, char **av, char *flag)
 {
@@ -50,9 +70,9 @@ static void		init(t_env *e, char *name)
 	e->fractal = name[0];
 	e->iter = 49;
 	e->zoom = 1;
-	e->color = 0x00003F; //??
-	e->x_base = WIN_SIZE * 0.5;
-	e->y_base = WIN_SIZE * 0.5;
+	e->color = 0x3F0000;
+	e->x = name[0] == 'M' ? WIN_SIZE / 4 : 0;
+	e->y = 0;
 	e->mlx = mlx_init();
 	e->win = mlx_new_window(e->mlx, WIN_SIZE, WIN_SIZE, name);
 	if (!(e->img = mlx_new_image(e->mlx, WIN_SIZE, WIN_SIZE)))
@@ -60,8 +80,12 @@ static void		init(t_env *e, char *name)
 	e->data = mlx_get_data_addr(e->img, &(e->bpp), &(e->x_len), &(e->endian));
 	mlx_key_hook(e->win, key_hook, e);
 	mlx_mouse_hook(e->win, mouse_hook, e);
-	mlx_hook(e->win, MotionNotify, PointerMotionMask, mouse_move, e);
+	if (name[0] == 'J')
+		mlx_hook(e->win, MotionNotify, PointerMotionMask, julia_move, e);
+	else
+		mlx_hook(e->win, MotionNotify, PointerMotionMask, mouse_move, e);
 	mlx_expose_hook(e->win, ex_hook, e);
+	disco(e, (int)name[0] - 64);
 }
 
 static void		launch_loop(char *flag, pid_t pid)
@@ -90,7 +114,6 @@ static void		launch_loop(char *flag, pid_t pid)
 			flag[1] ? mlx_loop(e[1].mlx) : 0, wait(NULL);
 	else
 		flag[0] ? (mlx_loop(e[0].mlx)) : 0, wait(NULL);
-
 }
 
 int				main(int ac, char **av)
