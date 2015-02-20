@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/18 20:53:20 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/19 21:59:02 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/20 17:22:08 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,17 @@ int				julia_move(int x, int y, t_env *e)
 	return (0);
 }
 
-void			julia(t_env *e, double ratio, t_char it)
+void			julia(t_env *e, t_char it)
 {
 	int				i;
 	int				j;
 	C_DOUBLE		z;
 
-	ratio = e->zoom * WIN_SIZE / 2;
 	i = -1;
 	while (j = -1, ++i < WIN_SIZE)
 		while (++j < WIN_SIZE)
 		{
-			z = (i - WIN_SIZE / 2 - e->x) / ratio +\
-				I * (j - WIN_SIZE / 2 - e->y) / ratio;
+			z = (i - e->x + I * (j - e->y)) / e->zoom;
 			it = -1;
 			while (++it < e->iter && (int)z < 2)
 				z = z * z + e->ju;

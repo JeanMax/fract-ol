@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/29 17:28:24 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/19 22:03:35 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/20 17:23:50 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,25 @@ int			ex_hook(t_env *e)
 		error(IMG_PTR);
 	e->data = mlx_get_data_addr(e->img, &(e->bpp), &(e->x_len), &(e->endian));
 	if (e->fractal == 'M')
-		mandelbrot(e, 0, 0);
+		mandelbrot(e, 0);
 	else if (e->fractal == 'J')
-		julia(e, 0, 0);
+		julia(e, 0);
 	else if (e->fractal == 'S')
-		schottky(e, 0, 0);
+		schottky(e, 0);
 	else if (e->fractal == 'C')
-		chromosom(e, 0, 0);
+		chromosom(e, 0);
 	else if (e->fractal == 'N')
-		noun(e, 0, 0);
+		noun(e, 0);
 	else if (e->fractal == 'D')
-		rabbit(e, 0, 0);
+		rabbit(e, 0);
 	return (0);
 }
 
 static void	another_key_hook(int key, t_env *e)
 {
-	if (key == ONE)
+	if (key == ESC)
+		ft_putstr_clr("K_THX_BYE", "b"), kill(0, SIGINT);
+	else if (key == ONE)
 		e->color += 0x100000, ex_hook(e);
 	else if (key == TWO)
 		e->color += 0x001000, ex_hook(e);
@@ -57,9 +59,7 @@ static void	another_key_hook(int key, t_env *e)
 
 int			key_hook(int key, t_env *e)
 {
-	if (key == ESC)
-		ft_putstr_clr("K_THX_BYE", "b"), kill(0, SIGINT);
-	else if (key == PAGE_UP)
+	if (key == PAGE_UP)
 		e->iter += e->iter == 253 ? 2 : 3;
 	else if (key == PAGE_DOWN)
 		e->iter -= e->iter == 3 ? 2 : 3;
@@ -69,10 +69,11 @@ int			key_hook(int key, t_env *e)
 		e->x += key == LEFT ? 10 : -10, ex_hook(e);
 	else if (key == SPACE)
 	{
-		e->x = 0;
-		e->y = 0;
-		e->zoom = 1;
+		e->x = WIN_SIZE / 2;
+		e->y = WIN_SIZE / 2;
+		e->zoom = WIN_SIZE / 2;
 		e->iter = 49;
+		e->color = 0x3F0000;
 		ex_hook(e);
 	}
 	else if (key == L_CTRL)
@@ -88,20 +89,16 @@ int			mouse_hook(int button, int x, int y, t_env *e)
 {
 	if (button == SCROLL_UP || button == LEFT_CLICK)
 	{
-		e->zoom /= 0.95;
-// 		e->x += (int)((WIN_SIZE / 2) - x) / (double)(19.0 / e->zoom);
-//		e->y += (int)((WIN_SIZE / 2) - y) / (double)(19.0 / e->zoom);
-		e->x += ((WIN_SIZE / 2) - x);
-		e->y += ((WIN_SIZE / 2) - y);
-		e->iter += e->iter < 254 ? 1 : 0;
-		ft_debugnbr("IterationLevel", e->iter);
+		e->x += (WIN_SIZE / 2) - x;
+		e->y += (WIN_SIZE / 2) - y;
+		e->zoom /= 0.99;
+		ft_debugnbr("e->x", e->x);
+		ft_debugnbr("e->y", e->y);
+		ft_debugnbr("x", x);
+		ft_debugnbr("y", y);
 	}
 	else if (button == SCROLL_DOWN || button == RIGHT_CLICK)
-	{
-		e->zoom *= 0.95;
-		e->iter -= e->iter > 3 ? 1 : 0;
-		ft_debugnbr("IterationLevel", e->iter);
-	}
+		e->zoom *= 0.99;
 	if (button == SCROLL_UP || button == SCROLL_DOWN || \
 		button == LEFT_CLICK || button == RIGHT_CLICK)
 		ex_hook(e);

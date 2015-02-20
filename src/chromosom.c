@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/19 06:09:08 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/19 21:52:19 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/20 17:19:40 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,19 @@
 
 #include "header.h"
 
-void			chromosom(t_env *e, double ratio, t_char it)
+void			chromosom(t_env *e, t_char it)
 {
 	int				i;
 	int				j;
 	C_DOUBLE		c;
 	C_DOUBLE		z;
 
-	ratio = e->zoom * WIN_SIZE / 2;
 	i = -1;
 	c = 0.02 + I;
 	while (j = -1, ++i < WIN_SIZE)
 		while (++j < WIN_SIZE)
 		{
-			z = (i - WIN_SIZE / 2 - e->x) / ratio + \
-				I * (j - WIN_SIZE / 2 - e->y) / ratio;
+			z = (i - e->x + I * (j - e->y)) / e->zoom;
 			it = -1;
 			while (++it < e->iter && (int)z < 2)
 				z = z * z + c;

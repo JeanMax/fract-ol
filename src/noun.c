@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/18 20:53:20 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/19 21:52:54 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/20 17:21:46 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,19 @@
 
 #include "header.h"
 
-void			noun(t_env *e, double ratio, t_char it)
+void			noun(t_env *e, t_char it)
 {
 	int				i;
 	int				j;
 	C_DOUBLE		c;
 	C_DOUBLE		z;
 
-	ratio = e->zoom * WIN_SIZE / 2;
 	i = -1;
 	c = -0.846545 + I * -0.2558;
 	while (j = -1, ++i < WIN_SIZE)
 		while (++j < WIN_SIZE)
 		{
-			z = (i - WIN_SIZE / 2 - e->x) / ratio \
-				+ I * (j - WIN_SIZE / 2 - e->y) / ratio;
+			z = (i - e->x + I * (j - e->y)) / e->zoom;
 			it = -1;
 			while (++it < e->iter && (int)z < 2)
 				z = z * z + c;

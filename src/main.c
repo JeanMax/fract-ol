@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/16 18:09:34 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/19 22:03:10 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/20 17:29:19 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ static void		init(t_env *e, char *name)
 	e->lock = 0;
 	e->fractal = name[0];
 	e->iter = 49;
-	e->zoom = 1;
+	e->zoom = WIN_SIZE / 2;
 	e->color = 0x3F0000;
-	e->x = name[0] == 'M' ? WIN_SIZE / 4 : 0;
-	e->y = 0;
+	e->x = name[0] == 'M' ? WIN_SIZE / 2 + WIN_SIZE / 4 : WIN_SIZE / 2;
+	e->y = WIN_SIZE / 2;
 	e->mlx = mlx_init();
 	e->win = mlx_new_window(e->mlx, WIN_SIZE, WIN_SIZE, name);
 	if (!(e->img = mlx_new_image(e->mlx, WIN_SIZE, WIN_SIZE)))
@@ -85,7 +85,7 @@ static void		init(t_env *e, char *name)
 	else
 		mlx_hook(e->win, MotionNotify, PointerMotionMask, mouse_move, e);
 	mlx_expose_hook(e->win, ex_hook, e);
-	disco(e, (int)name[0] - 64);
+	disco(e, (int)(name[0] - 64) / 2);
 }
 
 static void		launch_loop(char *flag, pid_t pid)

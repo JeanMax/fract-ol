@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/16 19:50:14 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/19 21:52:43 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/20 17:20:17 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,18 @@
 
 #include "header.h"
 
-void			mandelbrot(t_env *e, double ratio, t_char it)
+void			mandelbrot(t_env *e, t_char it)
 {
 	double				i;
 	double				j;
 	C_DOUBLE			c;
 	C_DOUBLE			z;
 
-	ratio = e->zoom * WIN_SIZE / 2;
 	i = -1;
 	while (j = -1, ++i < WIN_SIZE)
 		while (++j < WIN_SIZE)
 		{
-			c = (i - WIN_SIZE / 2 - e->x) / ratio \
-				+ I * (j - WIN_SIZE / 2 - e->y) / ratio;
+			c = (i - e->x + I * (j - e->y)) / e->zoom;
 			z = 0;
 			it = -1;
 			while (++it < e->iter && (int)z < 2)
