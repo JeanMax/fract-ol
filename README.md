@@ -5,5 +5,4 @@ PsycheStuff Inside
 
 ### TODO: ###
 
-* zoom upgrade?
-* prevent from hooks overflow
+* improve zoom movement

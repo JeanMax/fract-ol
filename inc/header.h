@@ -6,7 +6,7 @@
 /*   By: mcanal <mcanal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/29 13:23:15 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/20 17:17:05 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/22 12:31:28 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ struct	s_env
 	double			y;
 	int				color;
 	C_DOUBLE		ju;
+	t_char			hooking;
 };
 
 /*
@@ -102,6 +103,7 @@ int		mouse_hook(int button, int x, int y, t_env *e);
 int		mouse_move(int x, int y, t_env *e);
 int		julia_move(int x, int y, t_env *e);
 int		ex_hook(t_env *e);
+int		loop_hook(t_env *e);
 void	put_pixel_to_img(t_env *e, int x, int y, int color);
 
 #endif

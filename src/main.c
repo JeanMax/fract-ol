@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/16 18:09:34 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/20 17:29:19 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/22 12:57:44 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ static char		*check_flag(int ac, char **av, char *flag)
 static void		init(t_env *e, char *name)
 {
 	e->lock = 0;
+	e->hooking = 1;
 	e->fractal = name[0];
 	e->iter = 49;
 	e->zoom = WIN_SIZE / 2;
@@ -80,6 +81,7 @@ static void		init(t_env *e, char *name)
 	e->data = mlx_get_data_addr(e->img, &(e->bpp), &(e->x_len), &(e->endian));
 	mlx_key_hook(e->win, key_hook, e);
 	mlx_mouse_hook(e->win, mouse_hook, e);
+	mlx_loop_hook(e->mlx, loop_hook, e);
 	if (name[0] == 'J')
 		mlx_hook(e->win, MotionNotify, PointerMotionMask, julia_move, e);
 	else

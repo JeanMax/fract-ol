@@ -6,17 +6,38 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/16 18:26:16 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/19 21:44:51 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/22 13:50:13 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
-** mlx functions... thanks tpayet;P
+** mlx functions...
 */
 
 #include "header.h"
 
-void			put_pixel_to_img(t_env *e, int x, int y, int color)
+int					ex_hook(t_env *e)
+{
+	mlx_destroy_image(e->mlx, e->img);
+	if (!(e->img = mlx_new_image(e->mlx, WIN_SIZE, WIN_SIZE)))
+		error(IMG_PTR);
+	e->data = mlx_get_data_addr(e->img, &(e->bpp), &(e->x_len), &(e->endian));
+	if (e->fractal == 'M')
+		mandelbrot(e, 0);
+	else if (e->fractal == 'J')
+		julia(e, 0);
+	else if (e->fractal == 'S')
+		schottky(e, 0);
+	else if (e->fractal == 'C')
+		chromosom(e, 0);
+	else if (e->fractal == 'N')
+		noun(e, 0);
+	else if (e->fractal == 'D')
+		rabbit(e, 0);
+	return (0);
+}
+
+void				put_pixel_to_img(t_env *e, int x, int y, int color)
 {
 	int		i;
 	int		col_tmp;

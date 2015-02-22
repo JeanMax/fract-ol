@@ -6,7 +6,7 @@
 /*   By: mcanal <zboub@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/18 20:53:20 by mcanal            #+#    #+#             */
-/*   Updated: 2015/02/20 17:22:08 by mcanal           ###   ########.fr       */
+/*   Updated: 2015/02/22 13:15:19 by mcanal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 
 int				julia_move(int x, int y, t_env *e)
 {
-	if (!((x + y) % 2) && !e->lock)
+	if (!e->lock)
 	{
 		e->ju = (C_DOUBLE)(x + y) / (C_DOUBLE)WIN_SIZE;
-		ex_hook(e);
+		e->hooking = 42;
 	}
 	return (0);
 }
